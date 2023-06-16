@@ -89,7 +89,7 @@ export function StrikeJar({ strikes }: Props) {
       render.canvas.remove();
       render.textures = {};
     };
-  }, []);
+  }, [strikes]);
 
   return (
     <div
