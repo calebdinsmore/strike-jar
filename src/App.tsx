@@ -15,7 +15,7 @@ function App() {
         <StrikeJar strikes={STRIKES} />
       </section>
       <section className="p-3">
-        <h2 className="flex text-3xl font-bold sm:flex-col justify-center items-center gap-2">
+        <h2 className="flex-col text-3xl font-bold justify-center items-center gap-2">
           Days since Reena was last deeply out of pocket:
           <span className="text-7xl font-extrabold">{daysSince}</span>
         </h2>
