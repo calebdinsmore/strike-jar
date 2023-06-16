@@ -1,3 +1,3 @@
 # Strike Jar
 
-A simple site to memorialize how much Reena is wildly out of pocket.
+A simple site to track how many strikes Reena has accrued.
