@@ -24,7 +24,6 @@ export function StrikeJar({ strikes }: Props) {
 
   useEffect(() => {
     const currentEngine = engine.current;
-    currentEngine.gravity.scale = 0.0003;
     const world = currentEngine.world;
     const render = Render.create({
       element: scene.current!,
