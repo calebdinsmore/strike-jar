@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { StrikeJar } from "./StrikeJar";
+
+const OUT_OF_POCKET_DATE = new Date("06/15/2023");
+const STRIKES = 15;
 
 function App() {
+  const daysSince = Math.floor(
+    (new Date().getTime() - OUT_OF_POCKET_DATE.getTime()) / (1000 * 3600 * 24)
+  );
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="text-7xl font-extrabold p-5">Reena's Strike Jar</h1>
+      <section className="flex justify-center items-center">
+        <StrikeJar strikes={STRIKES} />
+      </section>
+      <section className="p-3">
+        <h2 className="flex text-3xl font-bold sm:flex-col justify-center items-center gap-2">
+          Days since Reena was last deeply out of pocket:
+          <span className="text-7xl font-extrabold">{daysSince}</span>
+        </h2>
+      </section>
+      <section className="p-3">
+        <h2 className="text-5xl font-bold flex justify-center items-center gap-2">
+          Strikes:
+          <span className="text-7xl font-extrabold">{STRIKES}</span>
+        </h2>
+      </section>
     </div>
   );
 }
