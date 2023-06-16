@@ -20,6 +20,7 @@ const HEIGHT = 400;
 export function StrikeJar({ strikes }: Props) {
   const scene = useRef<HTMLDivElement>(null);
   const engine = useRef(Engine.create());
+  const imageLoaded = useRef(false);
 
   useEffect(() => {
     const currentEngine = engine.current;
@@ -36,34 +37,38 @@ export function StrikeJar({ strikes }: Props) {
       },
     });
 
+    const reena = new Image();
+    reena.src = "images/reena.png";
+
+    reena.onload = () => {
+      if (imageLoaded.current) return;
+      imageLoaded.current = true;
+      for (let i = 0; i < strikes; i++) {
+        const x = Math.floor(Math.random() * WIDTH);
+        const y = Math.floor(Math.random() * 300);
+        const radius = 25;
+        World.add(
+          world,
+          Bodies.circle(x, y, radius, {
+            render: {
+              sprite: {
+                texture: reena.src,
+                xScale: (radius * 2) / reena.width,
+                yScale: (radius * 2) / reena.height,
+              },
+            },
+            density: 0.00005,
+          })
+        );
+      }
+    };
+
     Composite.add(world, [
       // walls
       Bodies.rectangle(WIDTH, 0, 20, 1000, { isStatic: true }), // right
       Bodies.rectangle(0, 0, 20, 1000, { isStatic: true }), // left
       Bodies.rectangle(0, HEIGHT, 1000, 20, { isStatic: true }), // bottom
     ]);
-
-    const reena = new Image();
-    reena.src = "images/reena.png";
-
-    for (let i = 0; i < strikes; i++) {
-      const x = Math.floor(Math.random() * WIDTH);
-      const y = Math.floor(Math.random() * 300);
-      const radius = 25;
-      World.add(
-        world,
-        Bodies.circle(x, y, radius, {
-          render: {
-            sprite: {
-              texture: reena.src,
-              xScale: (radius * 2) / reena.width,
-              yScale: (radius * 2) / reena.height,
-            },
-          },
-          density: 0.00005,
-        })
-      );
-    }
 
     const mouse = Mouse.create(render.canvas);
     const mouseConstraint = MouseConstraint.create(currentEngine, {
@@ -84,7 +89,7 @@ export function StrikeJar({ strikes }: Props) {
     return () => {
       // destroy Matter
       Render.stop(render);
-      World.clear(currentEngine.world, false);
+      World.clear(world, false);
       Engine.clear(currentEngine);
       render.canvas.remove();
       render.textures = {};
@@ -95,11 +100,8 @@ export function StrikeJar({ strikes }: Props) {
     <div
       ref={scene}
       style={{
-        // borderRadius: "0 0 10px 10px",
         width: `${WIDTH}px`,
         height: `${HEIGHT}px`,
-        // border: "white 2px solid",
-        // borderTop: "unset",
       }}
     ></div>
   );
