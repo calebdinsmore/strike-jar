@@ -1,8 +1,8 @@
 import "./App.css";
 import { StrikeJar } from "./StrikeJar";
 
-const OUT_OF_POCKET_DATE = new Date("10/31/2023");
-const STRIKES = 19;
+const OUT_OF_POCKET_DATE = new Date("08/27/2024");
+const STRIKES = 20;
 
 function App() {
   const daysSince = Math.floor(
